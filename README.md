@@ -26,3 +26,5 @@ I'm hoping that I can bring this passion I have for tech along with my passion f
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+**Note**
+This web app was built quickly and really only built for desktop hipcamp links. While this will work on a mobile browser, if you provide listing urls from Hipcamp's mobile site, I am not certain that the output will be as expected. For best results, use this app with links from hipcamps desktop app.
