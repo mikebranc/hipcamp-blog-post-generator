@@ -2,6 +2,7 @@
 It's know question content generation is an important driver of SEO. What if you could take existing HipCamp listings that you'd like to feature and draft a blog post highlighting them in seconds? Well now you can. With this simple web application, simply provide a geographic area that you'd like to highlight, insert urls of hipcamp listings for that area into the text box and generate a first draft of a blog post that discusses those listings for that area!
 
 See the live site at [hipcamphire.me](https://www.hipcamphire.me/)
+
 Check out a demo [here](https://www.loom.com/share/fdbad245c0e64b2fa020a396cd1b0fd9?sid=ade45207-dd6e-4934-b3f6-e4c15ead279a)
 
 ## To run locally
