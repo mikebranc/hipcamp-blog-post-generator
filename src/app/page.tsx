@@ -30,6 +30,8 @@ export default function Home() {
   const [results, setResults] = useState<ListingDataResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [responseText, setResponseText] = useState<string>('');
+  const [area, setArea] = useState<string>(''); // State to hold the area input
+
 
   const fetchListingData = async (urls: string[]): Promise<ListingDataResponse[]> => {
     try {
@@ -52,7 +54,7 @@ export default function Home() {
     ).join("\n");
 
     const messages = [
-      { role: "system", content: "You are a helpful marketing assistant that works for hipcamp as a copywriter and SEO expert. Please draft a blog post that describes the best HipCamps in the Madison,WI area. You will get a list of listings with the listing description, the name of the listing and a url. Please take this info to create a blog post. Your blog post should help our SEO and also should really highlight each property. Be sure to include the url for each property. Your response MUST BE in markdown format" },
+      { role: "system", content: `You are a helpful marketing assistant that works for hipcamp as a copywriter and SEO expert. Please draft a blog post that describes the best HipCamps in the ${area} area. You will get a list of listings with the listing description, the name of the listing and a url. Please take this info to create a blog post. Your blog post should help our SEO and also should really highlight each property. Be sure to include the url for each property. Your response MUST BE in markdown format` },
       { role: "user", content: listingsString }
     ];
 
@@ -99,7 +101,16 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4 min-h-screen">
+      <h1 className="text-2xl font-bol text-center mb-5">Hipcamp Blog Post Generator</h1>
+      <h3 className="mb-2">Provide a city name or area and a list of Hipcamp site urls to generate a blog post</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+            type="text"
+            className="w-full p-2 border rounded"
+            placeholder="Enter city or area name..."
+            value={area}
+            onChange={(e) => setArea(e.target.value)}
+          />
         <textarea
           className="w-full p-2 border rounded"
           rows={4}
@@ -116,23 +127,9 @@ export default function Home() {
         </button>
       </form>
       <div className="results mt-4">
-        {results.length > 0 && (
-          <p>Results fetched</p>
-          // <div className="results mt-4">
-          //   {results.map((result, index) => (
-          //     <div key={index} className="mb-4 p-4 border rounded">
-          //       <h3 className="font-bold">Title: {result.title}</h3>
-          //       <p>Description: {result.description}</p>
-          //       <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-          //         Visit
-          //       </a>
-          //     </div>
-          //   ))}
-          // </div>
-        )}
         {responseText && (
-          <div className="response mt-4 p-4 border rounded">
-            <h3 className="font-bold">OpenAI Response:</h3>
+          <div className="response mt-4 p-4 border rounded bg-slate-200">
+            <h3 className="font-bold">Generated Blog Post:</h3>
             <ReactMarkdown 
               components={{
                   a: ({ node, ...props }) => <a style={{ color: 'blue', textDecoration: 'underline' }} {...props} />
