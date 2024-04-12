@@ -13,18 +13,6 @@ export const dynamic = 'force-dynamic';
  
 export async function POST(req: Request) {
   const { messages } = await req.json();
- 
-  // // Ask OpenAI for a streaming chat completion given the prompt
-  // const response = await openai.chat.completions.create({
-  //   model: 'gpt-3.5-turbo',
-  //   stream: true,
-  //   messages,
-  // });
- 
-  // // Convert the response into a friendly text-stream
-  // const stream = OpenAIStream(response);
-  // // Respond with the stream
-  // return new StreamingTextResponse(stream);
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
 
@@ -55,15 +43,27 @@ export async function POST(req: Request) {
           }),
       })
 
-      if (!response.ok) {
-          console.log(await response.text())
-          throw new Error()
+      if (!response.ok || response.body === null) {
+        console.log('Response error:', response.status, await response.text());
+        throw new Error('Failed to get a valid response');
       }
 
-      for await (const chunk of response.body) {
-          parser.feed(decoder.decode(chunk))
+      if (response.body) {
+        const reader = response.body.getReader();
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            parser.feed(decoder.decode(value));
+          }
+        } catch (error) {
+          console.error('Error reading the stream:', error);
+          throw error;
+        } finally {
+          reader.releaseLock();
+        }
       }
-      },
+    },
   })
 
   return new Response(readableStream)
