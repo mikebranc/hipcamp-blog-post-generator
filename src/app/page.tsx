@@ -130,10 +130,9 @@ export default function Home() {
         {responseText && (
           <div className="response mt-4 p-4 border rounded bg-slate-200">
             <h3 className="font-bold">Generated Blog Post:</h3>
-            <ReactMarkdown 
-              components={{
-                  a: ({ node, ...props }) => <a style={{ color: 'blue', textDecoration: 'underline' }} {...props} />
-              }}
+            <ReactMarkdown
+            // @ts-ignore
+              components={markdownComponents}
             >
               {responseText}
             </ReactMarkdown>
