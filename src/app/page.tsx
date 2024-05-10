@@ -54,7 +54,7 @@ export default function Home() {
     ).join("\n");
 
     const messages = [
-      { role: "system", content: `You are a helpful marketing assistant that works for hipcamp as a copywriter and SEO expert. Please draft a blog post that describes the best HipCamps in the ${area} area. You will get a list of listings with the listing description, the name of the listing and a url. Please take this info to create a blog post. Your blog post should help our SEO and also should really highlight each property. Be sure to include the url for each property. Your response MUST BE in markdown format` },
+      { role: "system", content: `You are a helpful marketing assistant that works for hipcamp as a copywriter and SEO expert. Please draft a blog post that describes the best HipCamps in the ${area} area. You will get a list of listings with the listing description, the name of the listing and a url. Please take this info to create a blog post. Your blog post should help our SEO and also should really highlight each property. Be sure to include the url for each property. Your response MUST BE in markdown format. DO NOT FORMAT AS A CODE BLOCK. The returned text should never have backticks surrounding the response.` },
       { role: "user", content: listingsString }
     ];
 
